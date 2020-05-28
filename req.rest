@@ -1,0 +1,16 @@
+# GET http://localhost:8000/people
+# POST http://localhost:8000/people
+# Content-Type: application/json
+
+# {
+#     "name" : "Brandon"
+# }
+
+# GET http://localhost:8000/pets
+
+DELETE http://localhost:8000/pets
+Content-Type: application/json
+
+{
+    "type": "cat"
+}
