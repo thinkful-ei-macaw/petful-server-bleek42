@@ -1,7 +1,7 @@
 // eslint-disable-next-line strict
 const app = require('./modules/app/app');
-const port = process.env.PORT || 8000;
+const { PORT } = require('./config');
 
-app.listen(port, () => {
-  console.log(`[petful-server] Listening on ${port}.`);
+app.listen(PORT, () => {
+  console.log(`[petful-server] Listening on ${PORT}.`);
 });

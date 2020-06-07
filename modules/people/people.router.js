@@ -1,27 +1,32 @@
 'use strict';
 
 const express = require('express');
-const json = require('body-parser').json();
+const bodyParser = require('body-parser');
 
 const People = require('./people.service');
 
-const router = express.Router();
+const peopleRouter = express.Router();
+peopleRouter.use(bodyParser.json());
 
-router.get('/', (req, res) => {
+peopleRouter.get('/', (req, res) => {
   // Return all the people currently in the queue.
-  return res.json(People.get());
+  return res.status(200).json(People.get());
 });
 
-router.post('/', json, (req, res) => {
+peopleRouter.post('/', (req, res) => {
   // Add a new person to the queue.
   if (!req.body.name) {
     res.status(400).json({
       message: 'name is required',
     });
-  } else {
-    People.enqueue(req.body.name);
-    res.status(201).end();
   }
+  People.enqueue(req.body.name);
+  return res.status(201).end();
 });
 
-module.exports = router;
+peopleRouter.delete('/', (req, res) => {
+  People.dequeue();
+  return res.status(201).end();
+});
+
+module.exports = peopleRouter;
