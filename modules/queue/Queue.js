@@ -55,13 +55,13 @@ class Queue {
   all() {
     // Return all items in the queue.
     let node = this.first;
-    let que = [];
+    let queue = [];
     while (node !== null) {
-      que.push(node.value);
+      queue.push(node.value);
       node = node.next;
     }
 
-    return que;
+    return queue;
   }
 }
 
