@@ -19,20 +19,21 @@ petsRouter.route('/next').get((req, res) => {
 });
 
 petsRouter.get('/all', (req, res) => {
-  return res.status(200).json(Pets.all());
+  const allPets = Pets.all();
+  return res.status(200).json({ allPets });
 });
 
-petsRouter.delete('/dogs/adopt', jsonParser, (req, res) => {
-  // Remove a pet from adoption.
-  Pets.dequeue('dog');
+petsRouter.delete('/select', jsonParser, (req, res) => {
+  // Remove a pet from adoption.\
+  const { type } = req.body.type;
+  if (type !== 'dog' || type !== 'cat') {
+    res.status(400).json({
+      error: 'request body is not a cat or dog!',
+    });
+  }
+  Pets.dequeue(type);
   People.dequeue();
   Pets.get();
-  return res.status(204).end();
-});
-
-petsRouter.delete('/cats/adopt', jsonParser, (req, res) => {
-  Pets.dequeue('cat');
-  People.dequeue();
   return res.status(204).end();
 });
 
