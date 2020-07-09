@@ -25,7 +25,7 @@ petsRouter.get('/all', (req, res) => {
 
 petsRouter.delete('/select', jsonParser, (req, res) => {
   // Remove a pet from adoption.\
-  const { type } = req.body.type;
+  const type = req.body;
   if (type !== 'dog' || type !== 'cat') {
     res.status(400).json({
       error: 'request body is not a cat or dog!',
